@@ -7,10 +7,10 @@ class CadastroPage {
         campoPreco: '[data-testid="preco"]',
         campoDescricao: '[data-testid="descricao"]',
         campoQuantidade: '[data-testid="quantity"]',
-        btnSalvar: '[data-testid="cadastarProdutos"]'
+        btnSalvar: '[data-testid="cadastarProdutos"]',
     }
 
-    // AÇÕES (O que a página faz)
+    // AÇÕES (O que a página faz) campoSenhaUsu: '[data-testid="password"]'
     
     // Função mágica que faz o cadastro completo
     cadastrarProduto(nome, preco, descricao, quantidade) {
@@ -26,7 +26,7 @@ class CadastroPage {
         // Clica em salvar
         cy.get(this.elementos.btnSalvar).click()
     }
-}
+}  
 
 // Exportamos já "instanciado" (new) para usar direto
 export default new CadastroPage();
