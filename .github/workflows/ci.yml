@@ -1,0 +1,25 @@
+name: Testes Cypress 🧪
+
+# Quando isso vai rodar?
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+# O que vai ser feito?
+jobs:
+  cypress-run:
+    runs-on: ubuntu-latest # Usa uma máquina Linux virtual do GitHub
+    steps:
+      - name: Checkout do código 📥
+        uses: actions/checkout@v4
+
+      - name: Instalar e Rodar Cypress 🌲
+        # Usa a Action oficial do Cypress (faz tudo sozinho!)
+        uses: cypress-io/github-action@v6
+        with:
+          # Roda os testes em modo headless (sem abrir janela)
+          browser: chrome
+          # Gera o vídeo se falhar (opcional)
+          record: false
