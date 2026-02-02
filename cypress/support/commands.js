@@ -23,3 +23,18 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+// Cria um comando novo chamado "api_criarUsuario"
+Cypress.Commands.add('api_criarUsuario', (email, senha) => {
+    cy.request({
+        method: 'POST',
+        url: 'https://serverest.dev/usuarios',
+        failOnStatusCode: false, // Se o usuário já existir, não tem problema, segue o baile
+        body: {
+            nome: "Usuario CI/CD",
+            email: email,
+            password: senha,
+            administrador: "true"
+        }
+    })
+})

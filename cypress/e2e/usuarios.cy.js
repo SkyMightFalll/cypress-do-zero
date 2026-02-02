@@ -5,7 +5,10 @@ import UsuarioPage from '../support/pages/usuario.page'
 describe('Funcionalidade: Cadastro de Usuários (Admin)', () => {
 
   beforeEach(() => {
-    // Precisamos logar porque seu Page Object clica no botão do Dashboard
+    // 1. Garante que o usuário existe no servidor (via API)
+    cy.api_criarUsuario('luishenrique@gmail.com', '12345678')
+
+    // 2. Agora pode logar tranquilo
     LoginPage.realizarLogin('luishenrique@gmail.com', '12345678')
     cy.url().should('include', '/home')
   })
