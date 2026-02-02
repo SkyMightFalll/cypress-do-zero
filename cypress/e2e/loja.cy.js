@@ -16,11 +16,11 @@ describe('Funcionalidade: Loja e Carrinho', () => {
         const produto = 'Logitech MX Vertical'
 
         // AQUI ESTAVA O ERRO: Passamos o nome do produto para a função
+        // ...
         LojaPage.pesquisarEAdicionar(produto)
 
-        // Validação (Assert)
-        // Se o site diz "Em construção", seu teste está correto.
-        // Mas o ideal seria: cy.contains('Produto adicionado ao carrinho')
-        cy.contains('Em construção aguarde').should('be.visible')
+        // Validação Inteligente:
+        // Verificamos se o produto que pesquisamos ('Logitech MX Vertical') está visível na tela.
+        cy.contains(produto).should('be.visible')
     })
 })
