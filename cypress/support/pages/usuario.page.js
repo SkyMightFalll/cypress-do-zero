@@ -9,13 +9,19 @@ class UsuarioPage {
     }
 
     cadastrarUsuario(nome, email, senha) {
-    cy.get(this.elementos.btnCadastrarUsu).click()
+        // 1. Clica para entrar na tela de cadastro
+        cy.get(this.elementos.btnCadastrarUsu).click()
 
-    if(nome) cy.get(this.elementos.campoNomeUsu).type(nome)
-    if(email) cy.get(this.elementos.campoEmailUsu).type(email)
-    if(senha) cy.get(this.elementos.campoSenhaUsu).type(senha)
+        // 2. TRUQUE PRO CI: Espera o campo Nome aparecer antes de tentar digitar
+        // Isso evita que o teste falhe se a tela demorar 1 segundo pra carregar
+        cy.get(this.elementos.campoNomeUsu).should('be.visible')
 
-    cy.get((this.elementos.btnsalvarUsu)).click()
+        if(nome) cy.get(this.elementos.campoNomeUsu).type(nome)
+        if(email) cy.get(this.elementos.campoEmailUsu).type(email)
+        if(senha) cy.get(this.elementos.campoSenhaUsu).type(senha)
+
+        // 3. Corrigi os parênteses duplos ((...)) que estavam aqui
+        cy.get(this.elementos.btnsalvarUsu).click()
     }
 
     cadastrarAdm(nome, email, senha) {
