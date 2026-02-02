@@ -4,12 +4,11 @@ import LojaPage from '../support/pages/loja.page'
 
 describe('Funcionalidade: Loja e Carrinho', () => {
 
-    beforeEach(() => {
-    // 1. Garante que o usuário existe no servidor (via API)
-    cy.api_criarUsuario('luishenrique@gmail.com', '12345678')
-
-    // 2. Agora pode logar tranquilo
-    LoginPage.realizarLogin('luishenrique@gmail.com', '12345678')
+  beforeEach(() => {
+    // Passamos 'false' para criar um usuário que vê a LOJA e não o Dashboard
+    cy.api_criarUsuario('cliente@gmail.com', '12345678', false) 
+    
+    LoginPage.realizarLogin('cliente@gmail.com', '12345678')
     cy.url().should('include', '/home')
   })
 

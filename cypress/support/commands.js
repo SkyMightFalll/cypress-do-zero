@@ -24,17 +24,17 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
-// Cria um comando novo chamado "api_criarUsuario"
-Cypress.Commands.add('api_criarUsuario', (email, senha) => {
+// Agora aceita o terceiro parâmetro "tipo" (true = admin, false = comum)
+Cypress.Commands.add('api_criarUsuario', (email, senha, ehAdmin) => {
     cy.request({
         method: 'POST',
         url: 'https://serverest.dev/usuarios',
-        failOnStatusCode: false, // Se o usuário já existir, não tem problema, segue o baile
+        failOnStatusCode: false, 
         body: {
             nome: "Usuario CI/CD",
             email: email,
             password: senha,
-            administrador: "true"
+            administrador: String(ehAdmin) // Converte true/false para "true"/"false"
         }
     })
 })

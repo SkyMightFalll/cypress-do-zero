@@ -5,18 +5,20 @@ import UsuarioPage from '../support/pages/usuario.page'
 describe('Funcionalidade: Cadastro de Usuários (Admin)', () => {
 
   beforeEach(() => {
-    // 1. Garante que o usuário existe no servidor (via API)
-    cy.api_criarUsuario('luishenrique@gmail.com', '12345678')
-
-    // 2. Agora pode logar tranquilo
-    LoginPage.realizarLogin('luishenrique@gmail.com', '12345678')
-    cy.url().should('include', '/home')
+    // Aqui precisa ser Admin (true) para acessar o cadastro
+    cy.api_criarUsuario('admin@gmail.com', '12345678', true)
+    
+    LoginPage.realizarLogin('admin@gmail.com', '12345678')
+    cy.url().should('include', '/admin/home') // Admin cai nessa URL
   })
 
   it('Deve cadastrar um usuário com sucesso', () => {
-    const emailUsu = `luis.${Date.now()}@qa.com.br` // Melhor usar . para separar
+    const emailUsu = `luis.${Date.now()}@qa.com.br`
     UsuarioPage.cadastrarUsuario('Luis Henrique', emailUsu, '123456')
-    cy.contains('Usuário cadastrado com sucesso').should('be.visible')
+    
+    // MELHORIA: Em vez de buscar a mensagem, buscamos se o email apareceu na lista (tabela)
+    // Isso é prova irrefutável de que cadastrou
+    cy.contains('td', emailUsu).should('be.visible')
   })
 
   it('Não deve cadastrar usuario com nome vazio', () => {
